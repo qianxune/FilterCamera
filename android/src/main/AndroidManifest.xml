@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.scorpio.camera"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!--android:theme="@style/AppTheme"-->
+    <application
+        android:allowBackup="true"
+        android:label="@string/app_yc_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:replace="android:label"
+        tools:ignore="GoogleAppIndexingWarning"
+        android:name=".base.app.BaseApplication">
+        <activity android:name="com.scorpio.camera.activity.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.scorpio.camera.activity.TestActivity">
+        </activity>
+
+        <service android:name="com.scorpio.library.base.app.InitializeService"/>
+
+
+    </application>
+
+</manifest>

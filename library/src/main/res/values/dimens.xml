@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="nav_bar_height">58dp</dimen>
+    <dimen name="nav_bar_height_more">30dp</dimen>
+    <dimen name="back_height">25dp</dimen>
+    <dimen name="back_width">25dp</dimen>
+    <dimen name="highlightSize">18sp</dimen>
+    <dimen name="defaultSize">15sp</dimen>
+
+    <dimen name="dp1">1dp</dimen>
+    <dimen name="dp2">2dp</dimen>
+    <dimen name="dp3">3dp</dimen>
+    <dimen name="dp4">4dp</dimen>
+    <dimen name="dp5">5dp</dimen>
+    <dimen name="dp6">6dp</dimen>
+    <dimen name="dp7">7dp</dimen>
+    <dimen name="dp8">8dp</dimen>
+    <dimen name="dp9">9dp</dimen>
+    <dimen name="dp10">10dp</dimen>
+    <dimen name="dp12">12dp</dimen>
+    <dimen name="dp13">13dp</dimen>
+    <dimen name="dp14">14dp</dimen>
+    <dimen name="dp15">15dp</dimen>
+    <dimen name="dp20">20dp</dimen>
+    <dimen name="dp24">24dp</dimen>
+    <dimen name="dp25">25dp</dimen>
+    <dimen name="dp19">19dp</dimen>
+    <dimen name="dp30">30dp</dimen>
+    <dimen name="dp39">39dp</dimen>
+    <dimen name="dp40">40dp</dimen>
+    <dimen name="dp42">42dp</dimen>
+    <dimen name="dp50">50dp</dimen>
+
+
+    <!--全局文字的大小，统一引用-->
+    <dimen name="textSize9">9sp</dimen>
+    <dimen name="textSize10">10sp</dimen>
+    <dimen name="textSize11">11sp</dimen>
+    <dimen name="textSize12">12sp</dimen>
+    <dimen name="textSize13">13sp</dimen>
+    <dimen name="textSize14">14sp</dimen>
+    <dimen name="textSize15">15sp</dimen>
+    <dimen name="textSize16">16sp</dimen>
+    <dimen name="textSize18">18sp</dimen>
+    <dimen name="textSize19">19sp</dimen>
+    <dimen name="textSize20">20sp</dimen>
+    <dimen name="textSize22">22sp</dimen>
+</resources>
