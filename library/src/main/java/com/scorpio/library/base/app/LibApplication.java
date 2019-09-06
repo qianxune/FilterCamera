@@ -12,15 +12,7 @@ import com.scorpio.library.constant.Constant;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
-/**
- * <pre>
- *     @author 杨充
- *     blog  : https://github.com/yangchong211
- *     time  : 2017/05/23
- *     desc  : 可以做一些公共处理逻辑
- *     revise:
- * </pre>
- */
+
 public class LibApplication extends Application {
 
     @Override

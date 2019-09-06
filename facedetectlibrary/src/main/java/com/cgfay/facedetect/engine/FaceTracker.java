@@ -454,8 +454,7 @@ public final class FaceTracker {
             }
 
             // 人脸检测
-            final Facepp.Face[] faces = facepp.detect(data, width, height,
-                    faceTrackParam.previewTrack ? Facepp.IMAGEMODE_NV21 : Facepp.IMAGEMODE_RGBA);
+            final Facepp.Face[] faces = facepp.detect(data, width, height, faceTrackParam.previewTrack ? Facepp.IMAGEMODE_NV21 : Facepp.IMAGEMODE_RGBA);
 
             // 计算检测时间
             if (VERBOSE) {

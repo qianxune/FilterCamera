@@ -183,6 +183,12 @@ android {
         exclude "lib/x86/librealm-jni.so"
         exclude "lib/x86_64/librealm-jni.so"
     }
+    repositories {
+        flatDir {
+            // 人脸关键点检测依赖库下放到facedetectlibrary
+            dirs project(':facedetectlibrary').file('libs')
+        }
+    }
 
 }
 
@@ -195,6 +201,9 @@ dependencies {
     implementation('com.alibaba.android:vlayout:1.2.2@aar') {
         transitive = true
     }
+    implementation project(':cameralibrary')
+    implementation project(':imagelibrary')
+    implementation project(':filterlibrary')
     implementation project(':client')
     implementation project(':love')
     implementation project(':library')

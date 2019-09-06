@@ -34,15 +34,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!-- 贴纸 -->
+        <!-- 滤镜 -->
         <Button
             android:id="@+id/btn_stickers"
             android:layout_width="@dimen/stickers_width_height"
             android:layout_height="@dimen/stickers_width_height"
-            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/button_margin_horizontal"
-            android:background="@drawable/ic_camera_sticker_light" />
+            android:layout_marginEnd="@dimen/button_margin_horizontal"
+            android:background="@drawable/btn_filter" />
 
         <!-- 快门 -->
         <com.cgfay.camera.widget.ShutterButton
@@ -50,7 +50,23 @@
             android:layout_width="@dimen/record_width_height_normal"
             android:layout_height="@dimen/record_width_height_normal"
             android:layout_centerInParent="true"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+        <FrameLayout
+            android:id="@+id/fl_takePic"
+            android:layout_width="@dimen/record_width_height_normal"
+            android:layout_height="@dimen/record_width_height_normal"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center">
+            <ImageView
+                android:layout_width="@dimen/record_width_height_normal"
+                android:layout_height="@dimen/record_width_height_normal"
+                android:src="@drawable/btn_shutter_line"/>
+            <ImageView
+                android:layout_width="@dimen/record_width_height_normal"
+                android:layout_height="@dimen/record_width_height_normal"
+                android:src="@drawable/btn_shutter_circle"/>
+        </FrameLayout>-->
 
         <!-- 删除 -->
         <Button
@@ -79,10 +95,10 @@
             android:id="@+id/btn_view_photo"
             android:layout_width="@dimen/stickers_width_height"
             android:layout_height="@dimen/stickers_width_height"
-            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="@dimen/button_margin_horizontal"
-            android:background="@drawable/ic_camera_gallery_light" />
+            android:layout_marginStart="@dimen/button_margin_horizontal"
+            android:background="@drawable/btn_album" />
     </RelativeLayout>
 
     <!-- 底部指示器 -->

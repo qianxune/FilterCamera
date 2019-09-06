@@ -389,6 +389,7 @@ class RenderThread extends HandlerThread implements SurfaceTexture.OnFrameAvaila
      */
     void openCamera() {
         releaseCamera();
+        //TODO 开启相机
         CameraEngine.getInstance().openCamera(mContext);
         CameraEngine.getInstance().setPreviewSurface(mSurfaceTexture);
         calculateImageSize();

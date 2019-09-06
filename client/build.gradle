@@ -56,11 +56,21 @@ android {
     lintOptions {
         abortOnError false
     }
+    repositories {
+        flatDir {
+            // 人脸关键点检测依赖库下放到facedetectlibrary
+            dirs project(':facedetectlibrary').file('libs')
+        }
+    }
 
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':cameralibrary')
+    implementation project(':filterlibrary')
+    implementation project(':imagelibrary')
+
     implementation project(':library')
     annotationProcessor rootProject.ext.dependencies["router-compiler"]
 }

@@ -3,12 +3,25 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_preview_right_top"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_gravity="top|end"
+    android:orientation="horizontal"
     android:gravity="center"
     android:layout_margin="@dimen/top_button_margin">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center">
+        <Button
+            android:id="@+id/btn_close"
+            android:layout_width="@dimen/top_button_width_height"
+            android:layout_height="@dimen/top_button_width_height"
+            android:layout_centerVertical="true"
+            android:background="@drawable/btn_back"/>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/btn_switch"
@@ -20,12 +33,13 @@
         <ImageView
             android:layout_width="@dimen/top_button_width_height"
             android:layout_height="@dimen/top_button_width_height"
-            android:background="@drawable/ic_camera_switch_camera_light" />
+            android:background="@drawable/btn_change" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:text="翻转" />
+            android:text="翻转"
+            android:visibility="gone"/>
     </LinearLayout>
 
     <LinearLayout
@@ -35,7 +49,8 @@
         android:layout_weight="1"
         android:orientation="vertical"
         android:gravity="center"
-        android:layout_marginTop="@dimen/dp20">
+        android:visibility="gone"
+      >
         <ImageView
             android:layout_width="@dimen/top_button_width_height"
             android:layout_height="@dimen/top_button_width_height"
@@ -55,7 +70,8 @@
         android:layout_weight="1"
         android:orientation="vertical"
         android:gravity="center"
-        android:layout_marginTop="@dimen/dp20">
+        android:layout_marginTop="@dimen/dp20"
+        android:visibility="gone">
         <!-- 滤镜 -->
         <ImageView
             android:layout_width="@dimen/top_button_width_height"
@@ -69,22 +85,41 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/btn_change_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center">
+        <ImageView
+            android:layout_width="@dimen/top_button_width_height"
+            android:layout_height="@dimen/top_button_width_height"
+            android:background="@drawable/btn_ratio_4_3" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="更多"
+            android:visibility="gone"/>
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/btn_setting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:gravity="center"
-        android:layout_marginTop="@dimen/dp20">
+        android:gravity="center">
         <ImageView
             android:layout_width="@dimen/top_button_width_height"
             android:layout_height="@dimen/top_button_width_height"
-            android:background="@drawable/ic_camera_setting_more_light" />
+            android:background="@drawable/btn_menu_off" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:text="更多" />
+            android:text="更多"
+            android:visibility="gone"/>
     </LinearLayout>
 
 </LinearLayout>

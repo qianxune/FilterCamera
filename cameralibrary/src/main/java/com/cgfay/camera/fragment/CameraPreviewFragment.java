@@ -118,6 +118,8 @@ public class CameraPreviewFragment extends Fragment implements View.OnClickListe
     private Button mBtnStickers;
     // 快门按钮
     private ShutterButton mBtnShutter;
+    //新快门按钮
+    private FrameLayout mFlTakepic;
     // 媒体库按钮
     private Button mBtnViewPhoto;
     // 视频删除按钮
@@ -152,6 +154,7 @@ public class CameraPreviewFragment extends Fragment implements View.OnClickListe
         mMainHandler = new Handler(context.getMainLooper());
         mCameraEnable = PermissionUtils.permissionChecking(mActivity, Manifest.permission.CAMERA);
         mStorageWriteEnable = PermissionUtils.permissionChecking(mActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
         mPreviewPresenter = new CameraPreviewPresenter(this);
         mPreviewPresenter.onAttach(mActivity);
     }
@@ -178,15 +181,17 @@ public class CameraPreviewFragment extends Fragment implements View.OnClickListe
      * @param view
      */
     private void initView(View view) {
-        mAspectLayout = (AspectFrameLayout) view.findViewById(R.id.layout_aspect);
+        mAspectLayout = view.findViewById(R.id.layout_aspect);
 //        mCameraSurfaceView = new CainSurfaceView(mActivity);
 //        mCameraSurfaceView.addOnTouchScroller(mTouchScroller);
 //        mCameraSurfaceView.addMultiClickListener(mMultiClickListener);
 //        mAspectLayout.addView(mCameraSurfaceView);
+
         mCameraTextureView = new CainTextureView(mActivity);
         mCameraTextureView.addOnTouchScroller(mTouchScroller);
         mCameraTextureView.addMultiClickListener(mMultiClickListener);
         mCameraTextureView.setSurfaceTextureListener(mSurfaceTextureListener);
+
         mAspectLayout.addView(mCameraTextureView);
 
         // 全面屏比例处理
@@ -237,8 +242,10 @@ public class CameraPreviewFragment extends Fragment implements View.OnClickListe
         mBtnSwitch.setOnClickListener(this);
         mBtnSpeed = (LinearLayout) view.findViewById(R.id.btn_speed);
         mBtnSpeed.setOnClickListener(this);
+
         mBtnEffect = (LinearLayout) view.findViewById(R.id.btn_effects);
         mBtnEffect.setOnClickListener(this);
+
 
         mLayoutBottom = (LinearLayout) view.findViewById(R.id.layout_bottom);
         mSpeedBar = (RecordSpeedLevelBar) view.findViewById(R.id.record_speed_bar);
@@ -266,6 +273,9 @@ public class CameraPreviewFragment extends Fragment implements View.OnClickListe
         mBtnRecordPreview = (Button) view.findViewById(R.id.btn_record_preview);
         mBtnRecordPreview.setOnClickListener(this);
 
+        mFlTakepic=view.findViewById(R.id.fl_takePic);
+        mFlTakepic.setOnClickListener(this);
+
         adjustBottomView();
     }
 
@@ -274,7 +284,7 @@ public class CameraPreviewFragment extends Fragment implements View.OnClickListe
      */
     private void adjustBottomView() {
         boolean result = mCameraParam.currentRatio < CameraParam.Ratio_4_3;
-        mBtnStickers.setBackgroundResource(result ? R.drawable.ic_camera_sticker_light : R.drawable.ic_camera_sticker_dark);
+        mBtnStickers.setBackgroundResource(result ? R.drawable.btn_filter : R.drawable.btn_filter_w);
         mBtnRecordDelete.setBackgroundResource(result ? R.drawable.ic_camera_record_delete_light : R.drawable.ic_camera_record_delete_dark);
         mBtnRecordPreview.setBackgroundResource(result ? R.drawable.ic_camera_record_done_light : R.drawable.ic_camera_record_done_dark);
         mBtnShutter.setOuterBackgroundColor(result ? R.color.shutter_gray_light : R.color.shutter_gray_dark);
@@ -329,7 +339,9 @@ public class CameraPreviewFragment extends Fragment implements View.OnClickListe
             setShowingSpeedBar(mSpeedBarShowing);
         }
         int i = v.getId();
-        if (i == R.id.btn_close) {
+        if(i==R.id.fl_takePic){
+            takePicture();
+        } else if (i == R.id.btn_close) {
             mActivity.finish();
             mActivity.overridePendingTransition(0, R.anim.anim_slide_down);
         } else if (i == R.id.btn_select_music) {
@@ -339,11 +351,16 @@ public class CameraPreviewFragment extends Fragment implements View.OnClickListe
         } else if (i == R.id.btn_speed) {
             setShowingSpeedBar(mSpeedBar.getVisibility() != View.VISIBLE);
         } else if (i == R.id.btn_effects) {
-            showEffectView();
+
+
+
+
         } else if (i == R.id.btn_setting) {
             showSettingPopView();
         } else if (i == R.id.btn_stickers) {
-            showStickers();
+           // showStickers();
+            showEffectView();
+
         } else if (i == R.id.btn_view_photo) {
             mPreviewPresenter.onOpenGalleryPage();
         } else if (i == R.id.btn_shutter) {
@@ -720,23 +737,6 @@ public class CameraPreviewFragment extends Fragment implements View.OnClickListe
 
     };
 
-//    private SurfaceHolder.Callback mSurfaceCallback = new SurfaceHolder.Callback() {
-//        @Override
-//        public void surfaceCreated(SurfaceHolder holder) {
-//            mPreviewPresenter.bindSurface(holder.getSurface());
-//        }
-//
-//        @Override
-//        public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-//            mPreviewPresenter.changePreviewSize(width, height);
-//        }
-//
-//        @Override
-//        public void surfaceDestroyed(SurfaceHolder holder) {
-//            mPreviewPresenter.unBindSurface();
-//        }
-//    };
-
     private TextureView.SurfaceTextureListener mSurfaceTextureListener = new TextureView.SurfaceTextureListener() {
         @Override
         public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
@@ -804,7 +804,7 @@ public class CameraPreviewFragment extends Fragment implements View.OnClickListe
         mMainHandler.post(() -> {
             if (mCameraParam.showFps) {
                 mFpsView.setText("fps = " + fps);
-                mFpsView.setVisibility(View.VISIBLE);
+               // mFpsView.setVisibility(View.VISIBLE);
             } else {
                 mFpsView.setVisibility(View.GONE);
             }

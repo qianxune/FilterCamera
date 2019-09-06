@@ -423,6 +423,7 @@ public class PreviewEffectFragment extends Fragment implements View.OnClickListe
                     ? R.drawable.ic_camera_vignette_selected
                     : R.drawable.ic_camera_vignette_normal);
             mBtnVignette.setOnClickListener(this);
+
             mFilterRecyclerView = (RecyclerView) mLayoutFilter.findViewById(R.id.preview_filter_list);
             mFilterLayoutManager = new LinearLayoutManager(mActivity);
             mFilterLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -430,6 +431,8 @@ public class PreviewEffectFragment extends Fragment implements View.OnClickListe
             mFilterAdapter = new PreviewFilterAdapter(mActivity,
                     FilterHelper.getFilterList());
             mFilterRecyclerView.setAdapter(mFilterAdapter);
+
+
             mFilterAdapter.setOnFilterChangeListener(resourceData -> {
                 if (mActivity == null) {
                     return;

@@ -147,7 +147,7 @@ public class CameraPreviewPresenter extends PreviewPresenter<CameraPreviewFragme
                 .prepareFaceTracker(mActivity, mCameraParam.orientation,
                         mCameraParam.previewWidth, mCameraParam.previewHeight);
     }
-
+    //TODO 人脸检测
     /**
      * 相机预览回调
      * @param data
@@ -155,8 +155,7 @@ public class CameraPreviewPresenter extends PreviewPresenter<CameraPreviewFragme
     @Override
     public void onPreviewCallback(byte[] data) {
         // 人脸检测
-        FaceTracker.getInstance().trackFace(data,
-                mCameraParam.previewWidth, mCameraParam.previewHeight);
+        FaceTracker.getInstance().trackFace(data, mCameraParam.previewWidth, mCameraParam.previewHeight);
     }
 
     /**

@@ -117,9 +117,9 @@ public class ShutterButton extends View {
     private void init() {
 
         // 设置外圆背景颜色
-        mOuterBackgroundColor = getResources().getColor(R.color.shutter_gray_dark);
+        mOuterBackgroundColor = getResources().getColor(R.color.shutter_green);
         // 设置内圆背景
-        mInnerBackgroundColor = getResources().getColor(R.color.shutter_green);
+        mInnerBackgroundColor = getResources().getColor(R.color.shutter_blue);
 
         // 填充背景的Paint
         mFillPaint = new Paint();
