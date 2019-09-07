@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.Button;
 import com.cgfay.camera.engine.PreviewEngine;
 import com.cgfay.camera.engine.model.AspectRatio;
 import com.cgfay.camera.engine.model.GalleryType;
@@ -22,8 +22,8 @@ import com.scorpio.library.arounter.ARouterUtils;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private ImageView IvCamera;
-    private ImageView IvGallery;
+    private Button mBtnCamera;
+    private Button mBtnGallery;
 
 
     @Override
@@ -35,20 +35,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initResources();
     }
     private void initView(){
-        IvCamera=findViewById(R.id.iv_camera);
-        IvGallery=findViewById(R.id.iv_gallery);
-        IvCamera.setOnClickListener(this);
-        IvGallery.setOnClickListener(this);
+        mBtnCamera=findViewById(R.id.btn_camera);
+        mBtnGallery=findViewById(R.id.btn_gallery);
+        mBtnCamera.setOnClickListener(this);
+        mBtnGallery.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.iv_camera:
+            case R.id.btn_camera:
                 //RouterUtils.navigation(ARouterConstant.ACTIVITY_CAMERA_ACTIVITY);
                 previewCamera();
                 break;
-            case R.id.iv_gallery:
+            case R.id.btn_gallery:
                 ARouterUtils.navigation(ARouterConstant.ACTIVITY_LOVE_ACTIVITY);
                 Log.d("scorpiozjm","testActivity");
                 break;

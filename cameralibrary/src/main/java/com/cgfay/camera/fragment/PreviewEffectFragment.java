@@ -1,5 +1,6 @@
 package com.cgfay.camera.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
@@ -40,7 +41,7 @@ public class PreviewEffectFragment extends Fragment implements View.OnClickListe
     private static final boolean VERBOSE = true;
 
     // 标题选择索引，0表示美颜，1表轻美妆，3表示滤镜
-    private int mTitleButtonIndex = 0;
+    private int mTitleButtonIndex = 2;
 
     // 滤镜索引你
     private int mFilterIndex = 0;
@@ -215,11 +216,12 @@ public class PreviewEffectFragment extends Fragment implements View.OnClickListe
     /**
      * 重置布局
      */
+    @SuppressLint("ResourceAsColor")
     private void resetLayout() {
         // 重置标题
-        mBtnBeauty.setBackgroundColor(mTitleButtonIndex == 0 ? Color.DKGRAY : Color.TRANSPARENT);
-        mBtnMakeup.setBackgroundColor(mTitleButtonIndex == 1 ? Color.DKGRAY : Color.TRANSPARENT);
-        mBtnFilter.setBackgroundColor(mTitleButtonIndex == 2 ? Color.DKGRAY : Color.TRANSPARENT);
+       /* mBtnBeauty.setBackgroundColor(mTitleButtonIndex == 0 ? R.color.effectSelect : Color.TRANSPARENT);
+        mBtnMakeup.setBackgroundColor(mTitleButtonIndex == 1 ? R.color.effectSelect: Color.TRANSPARENT);
+        mBtnFilter.setBackgroundColor(mTitleButtonIndex == 2 ? R.color.effectSelect : Color.TRANSPARENT);*/
         mLayoutProgress.setVisibility(View.GONE);
     }
 

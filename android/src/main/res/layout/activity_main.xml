@@ -34,19 +34,29 @@
             android:orientation="horizontal"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true">
-            <ImageView
-                android:id="@+id/iv_gallery"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_front_gallery"/>
-            <ImageView
+            <Button
+                android:id="@+id/btn_gallery"
+                android:layout_width="100dip"
+                android:layout_height="100dip"
+                android:drawableTop="@drawable/icon_front_gallery"
+                android:text="Gallery"
+                android:paddingTop="20dip"
+                android:paddingBottom="10dip"
+                android:gravity="center"
+                android:textColor="@color/ghostwhite"
+                android:background="@drawable/shape_bg_round"/>
+            <Button
+                android:id="@+id/btn_camera"
                 android:layout_marginLeft="60dip"
-                android:id="@+id/iv_camera"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_front_camera"
-                android:layout_gravity="center"/>
-
+                android:layout_width="100dip"
+                android:layout_height="100dip"
+                android:drawableTop="@drawable/icon_front_camera"
+                android:text="Camera"
+                android:paddingTop="20dip"
+                android:paddingBottom="10dip"
+                android:gravity="center"
+                android:textColor="@color/ghostwhite"
+                android:background="@drawable/shape_bg_cyan_round"/>
         </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>

@@ -156,4 +156,10 @@
     <color name="navy">#000080</color>                  <!--海军色 -->
     <color name="black">#000000</color>                 <!--黑色 -->
 
+    <color name="blue_text_main">#4C76C8</color>                 <!--首页 -->
+    <color name="blue_bg_main">#486CC0</color>
+
+    <color name="cyan_bg_main">#50CDFD</color>
+
+
 </resources>
