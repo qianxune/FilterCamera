@@ -4,20 +4,10 @@ import android.annotation.SuppressLint;
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 import com.blankj.utilcode.util.LogUtils;
 
-/**
- * <pre>
- *     @author      杨充
- *     blog         https://www.jianshu.com/p/53017c3fc75d
- *     time         2015/08/22
- *     desc         子线程初始化工作
- *     revise       初始化第三方sdk等等
- *     GitHub       https://github.com/yangchong211
- * </pre>
- */
+
 @SuppressLint("Registered")
 public class InitializeService extends IntentService {
 
