@@ -1,1 +1,1 @@
-include ':android', ':library', ':client', ':love', ':landmarklibrary', ':facedetectlibrary', ':cameralibrary', ':gdxlibrary', ':medialibrary', ':filterlibrary', ':utilslibrary', ':imagelibrary', ':imageeditlibrary',':face'
+include ':android', ':library', ':client', ':love', ':landmarklibrary', ':facedetectlibrary', ':cameralibrary', ':gdxlibrary', ':medialibrary', ':filterlibrary', ':utilslibrary', ':imagelibrary', ':imageeditlibrary', ':face', ':dlib', ':imagefilterlibrary', ':magiccamera'

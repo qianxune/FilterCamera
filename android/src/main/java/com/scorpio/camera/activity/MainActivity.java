@@ -8,6 +8,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -21,10 +23,10 @@ import com.cgfay.camera.engine.model.AspectRatio;
 import com.cgfay.camera.engine.model.GalleryType;
 import com.cgfay.camera.listener.OnGallerySelectedListener;
 import com.cgfay.camera.listener.OnPreviewCaptureListener;
-import com.cgfay.filter.glfilter.resource.FilterHelper;
+/*import com.cgfay.filter.glfilter.resource.FilterHelper;
 import com.cgfay.filter.glfilter.resource.MakeupHelper;
 import com.cgfay.filter.glfilter.resource.ResourceHelper;
-import com.cgfay.image.activity.ImageEditActivity;
+import com.cgfay.image.activity.ImageEditActivity;*/
 import com.github.dfqin.grantor.PermissionListener;
 import com.github.dfqin.grantor.PermissionsUtil;
 import com.scorpio.camera.R;
@@ -36,15 +38,17 @@ import com.seu.magicfilter.utils.MagicSDK;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private Button mBtnCamera;
     private Button mBtnGallery;
-
     private MagicImageDisplay mMagicImageDisplay;
-
     private GLSurfaceView mGlsurfaceview_image;
+
+    private int filters[] = new int[] {MagicFilterType.AMARO,MagicFilterType.BROOKLYN,MagicFilterType.SUNRISE,MagicFilterType.SUNSET,MagicFilterType.WHITECAT,MagicFilterType.LOMO };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -68,8 +72,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Bitmap bitmap=getImageFromAssetsFile(this,"bg_main.png");
         mMagicImageDisplay.setImageBitmap(bitmap);
 
-
-
+        mTask = new TimerTask() {
+            @Override
+            public void run() {
+                Message message = new Message();
+                message.what = 1;
+                handler.sendMessage(message);
+            }
+        };
+        mTimer.schedule(mTask, 2000, 2000);
     }
     public void permission() {
         PermissionsUtil.requestPermission(getApplication(), new PermissionListener() {
@@ -104,14 +115,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return image;
     }
 
+    int currentPostion=0;
+    private final Timer mTimer = new Timer();
+    private TimerTask mTask;
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            // TODO Auto-generated method stub
+            // 要做的事情
+            if(currentPostion<filters.length){
+                mMagicImageDisplay.setFilter(filters[currentPostion]);
+                currentPostion++;
+            }else{
+                currentPostion=0;
+            }
+            super.handleMessage(msg);
+        }
+    };
+
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_camera:
-                mMagicImageDisplay.setFilter(MagicFilterType.ROMANCE);
                 //RouterUtils.navigation(ARouterConstant.ACTIVITY_CAMERA_ACTIVITY);
-               // previewCamera();
+                previewCamera();
                 break;
             case R.id.btn_gallery:
                 Intent intent=new Intent(MainActivity.this, ImageActivity.class);
@@ -140,10 +168,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onMediaSelectedListener(String path, GalleryType type) {
                 if (type == GalleryType.PICTURE) {
-                    Intent intent = new Intent(MainActivity.this, ImageEditActivity.class);
+                /*    Intent intent = new Intent(MainActivity.this, ImageEditActivity.class);
                     intent.putExtra(ImageEditActivity.IMAGE_PATH, path);
                     intent.putExtra(ImageEditActivity.DELETE_INPUT_FILE, true);
-                    startActivity(intent);
+                    startActivity(intent);*/
                 }
             }
         }).startPreview();
@@ -153,9 +181,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         new Thread(new Runnable() {
             @Override
             public void run() {
-                ResourceHelper.initAssetsResource(MainActivity.this);
+               /* ResourceHelper.initAssetsResource(MainActivity.this);
                 FilterHelper.initAssetsFilter(MainActivity.this);
-                MakeupHelper.initAssetsMakeup(MainActivity.this);
+                MakeupHelper.initAssetsMakeup(MainActivity.this);*/
             }
         }).start();
     }

@@ -204,12 +204,12 @@ dependencies {
     implementation 'com.github.dfqin:grantor:2.5'
     implementation project(':magiccamera')
     implementation project(':imagefilterlibrary')
-    implementation project(':dlib')
+    //implementation project(':dlib')
     implementation project(':imageeditlibrary')
     implementation project(':cameralibrary')
-    implementation project(':imagelibrary')
-    implementation project(':filterlibrary')
-    implementation project(':client')
+    //implementation project(':imagelibrary')
+    //implementation project(':filterlibrary')
+    //implementation project(':client')
    // implementation project(':love')
     implementation project(':library')
     annotationProcessor rootProject.ext.dependencies["router-compiler"]

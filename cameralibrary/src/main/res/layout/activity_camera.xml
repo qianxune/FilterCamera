@@ -8,6 +8,10 @@
     android:background="@color/video_window_background"
     tools:context="com.cgfay.camera.activity.CameraActivity">
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/vvv"/>
     <!-- 安全区域 -->
     <View
         android:id="@+id/view_safety_area"

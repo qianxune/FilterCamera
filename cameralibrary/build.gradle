@@ -35,7 +35,7 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation project(':dlib')
+    //implementation project(':dlib')
     implementation project(':facedetectlibrary')
     implementation project(':filterlibrary')
     implementation project(':landmarklibrary')

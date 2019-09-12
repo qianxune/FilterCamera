@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.hardware.Camera;
 import android.support.v4.app.Fragment;
 import com.cgfay.camera.activity.CameraActivity;
+import com.cgfay.camera.activity.CameraOpActivity;
 import com.cgfay.camera.engine.camera.CameraParam;
 import com.cgfay.camera.listener.OnGallerySelectedListener;
 import com.cgfay.camera.listener.OnPreviewCaptureListener;

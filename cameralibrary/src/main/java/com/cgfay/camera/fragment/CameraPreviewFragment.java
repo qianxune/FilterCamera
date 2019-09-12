@@ -52,9 +52,9 @@ import com.cgfay.uitls.utils.StatusBarUtils;
 import com.cgfay.uitls.utils.StringUtils;
 
 
-import com.tzutalin.dlib.Constants;
+/*import com.tzutalin.dlib.Constants;
 import com.tzutalin.dlib.FaceDet;
-import com.tzutalin.dlib.VisionDetRet;
+import com.tzutalin.dlib.VisionDetRet;*/
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -771,15 +771,15 @@ public class CameraPreviewFragment extends Fragment implements View.OnClickListe
 
         @Override
         public void onSurfaceTextureUpdated(SurfaceTexture surface) {
-            if (!mIsDetecting) {
+       /*     if (!mIsDetecting) {
                 Bitmap bp = mCameraTextureView.getBitmap();
                 bp = Bitmap.createBitmap(bp, 0, 0, bp.getWidth(), bp.getHeight(), mCameraTextureView.getTransform(null), true);
                 Log.d("spandtime",bp.getWidth()/2+"   "+bp.getHeight()/2);
                 new detectAsync().execute(bp);
-            }
+            }*/
         }
     };
-    private class detectAsync extends AsyncTask<Bitmap, Void, List<VisionDetRet>> {
+ /*   private class detectAsync extends AsyncTask<Bitmap, Void, List<VisionDetRet>> {
 
         @Override
         protected void onPreExecute() {
@@ -811,7 +811,7 @@ public class CameraPreviewFragment extends Fragment implements View.OnClickListe
             mIsDetecting = false;
         }
     }
-
+*/
     // ----------------------------------- 顶部状态栏点击回调 ------------------------------------
     private PopupSettingView.StateChangedListener mStateChangedListener = new PopupSettingView.StateChangedListener() {
 
