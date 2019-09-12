@@ -179,10 +179,14 @@ public class StaticStickerNormalFilter extends DynamicStickerBaseFilter {
         float stickerWidth= stickerData.width;
         float stickerX=x;//0
         float stickerY=y;//0
-        mStickerVertices[0] = stickerX ; mStickerVertices[1] = stickerY;
-        mStickerVertices[2] = stickerX + stickerWidth; mStickerVertices[3] = stickerY;
-        mStickerVertices[4] = stickerX; mStickerVertices[5] = stickerY + stickerHeight;
-        mStickerVertices[6] = stickerX + stickerWidth; mStickerVertices[7] = stickerY + stickerHeight;
+        mStickerVertices[0] = stickerX ;
+        mStickerVertices[1] = stickerY;
+        mStickerVertices[2] = stickerX + stickerWidth;
+        mStickerVertices[3] = stickerY;
+        mStickerVertices[4] = stickerX;
+        mStickerVertices[5] = stickerY + stickerHeight;
+        mStickerVertices[6] = stickerX + stickerWidth;
+        mStickerVertices[7] = stickerY + stickerHeight;
         mVertexBuffer.clear();
         mVertexBuffer.position(0);
         mVertexBuffer.put(mStickerVertices);

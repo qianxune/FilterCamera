@@ -4,8 +4,10 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -39,6 +41,7 @@ import com.cgfay.camera.widget.HorizontalIndicatorView;
 import com.cgfay.camera.widget.PopupSettingView;
 import com.cgfay.camera.widget.RecordSpeedLevelBar;
 import com.cgfay.camera.widget.ShutterButton;
+import com.cgfay.facedetect.engine.FaceTracker;
 import com.cgfay.filter.multimedia.VideoCombiner;
 import com.cgfay.uitls.fragment.PermissionErrorDialogFragment;
 import com.cgfay.uitls.utils.BrightnessUtils;
@@ -47,6 +50,11 @@ import com.cgfay.uitls.utils.NotchUtils;
 import com.cgfay.uitls.utils.PermissionUtils;
 import com.cgfay.uitls.utils.StatusBarUtils;
 import com.cgfay.uitls.utils.StringUtils;
+
+
+import com.tzutalin.dlib.Constants;
+import com.tzutalin.dlib.FaceDet;
+import com.tzutalin.dlib.VisionDetRet;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -143,6 +151,10 @@ public class CameraPreviewFragment extends Fragment implements View.OnClickListe
 
     private CameraPreviewPresenter mPreviewPresenter;
 
+
+
+    //private BoundingBoxView mBoundingBoxView;
+
     public CameraPreviewFragment() {
         mCameraParam = CameraParam.getInstance();
     }
@@ -186,7 +198,7 @@ public class CameraPreviewFragment extends Fragment implements View.OnClickListe
 //        mCameraSurfaceView.addOnTouchScroller(mTouchScroller);
 //        mCameraSurfaceView.addMultiClickListener(mMultiClickListener);
 //        mAspectLayout.addView(mCameraSurfaceView);
-
+        //mBoundingBoxView=view.findViewById(R.id.boundingBoxView);
         mCameraTextureView = new CainTextureView(mActivity);
         mCameraTextureView.addOnTouchScroller(mTouchScroller);
         mCameraTextureView.addMultiClickListener(mMultiClickListener);
@@ -737,6 +749,8 @@ public class CameraPreviewFragment extends Fragment implements View.OnClickListe
 
     };
 
+
+    private boolean mIsDetecting;
     private TextureView.SurfaceTextureListener mSurfaceTextureListener = new TextureView.SurfaceTextureListener() {
         @Override
         public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
@@ -757,9 +771,46 @@ public class CameraPreviewFragment extends Fragment implements View.OnClickListe
 
         @Override
         public void onSurfaceTextureUpdated(SurfaceTexture surface) {
-
+            if (!mIsDetecting) {
+                Bitmap bp = mCameraTextureView.getBitmap();
+                bp = Bitmap.createBitmap(bp, 0, 0, bp.getWidth(), bp.getHeight(), mCameraTextureView.getTransform(null), true);
+                Log.d("spandtime",bp.getWidth()/2+"   "+bp.getHeight()/2);
+                new detectAsync().execute(bp);
+            }
         }
     };
+    private class detectAsync extends AsyncTask<Bitmap, Void, List<VisionDetRet>> {
+
+        @Override
+        protected void onPreExecute() {
+            mIsDetecting = true;
+            super.onPreExecute();
+        }
+
+        protected List<VisionDetRet> doInBackground(Bitmap... bp) {
+
+            Log.d(TAG, "byte to bitmap");
+
+            long startTime = System.currentTimeMillis();
+            List<VisionDetRet> results;
+          //  FaceTracker.getInstance().trackFaceBydlib(bp[0],mCameraParam.previewWidth, mCameraParam.previewHeight);
+
+            results = FaceDet.getInstance().detect(bp[0]);
+            if(results.size()>0){
+                Log.d("spandtime","！！ "+results.get(0).getFaceLandmarks().toString());
+            }
+            long endTime = System.currentTimeMillis();
+            Log.d(TAG, "Time cost: " + String.valueOf((endTime - startTime) / 1000f) + " sec");
+
+            return null;
+        }
+
+        protected void onPostExecute(List<VisionDetRet> results) {
+
+            //mBoundingBoxView.setResults(results);
+            mIsDetecting = false;
+        }
+    }
 
     // ----------------------------------- 顶部状态栏点击回调 ------------------------------------
     private PopupSettingView.StateChangedListener mStateChangedListener = new PopupSettingView.StateChangedListener() {

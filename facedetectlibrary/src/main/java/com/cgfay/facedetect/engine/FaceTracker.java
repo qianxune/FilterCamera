@@ -1,6 +1,10 @@
 package com.cgfay.facedetect.engine;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.Nullable;
@@ -11,10 +15,15 @@ import com.cgfay.facedetect.listener.FaceTrackerCallback;
 import com.cgfay.facedetect.utils.ConUtil;
 import com.cgfay.facedetect.utils.FaceppConstraints;
 import com.cgfay.facedetect.utils.SensorEventUtil;
+import com.cgfay.landmark.DlibLandMark;
 import com.cgfay.landmark.LandmarkEngine;
 import com.cgfay.landmark.OneFace;
 import com.megvii.facepp.sdk.Facepp;
 import com.megvii.licensemanager.sdk.LicenseManager;
+import com.tzutalin.dlib.FaceDet;
+import com.tzutalin.dlib.VisionDetRet;
+
+import java.util.List;
 
 /**
  * 人脸检测器
@@ -92,6 +101,22 @@ public final class FaceTracker {
             }
         }
     }
+
+    /**
+     * 通过DLIB做人脸检测
+     * @param data
+     * @param width
+     * @param height
+     */
+    public void trackFaceBydlib(Bitmap data, int width, int height){
+        synchronized (mSyncFence) {
+            if (mTrackerThread != null) {
+                mTrackerThread.trackFaces(data, width, height);
+            }
+        }
+    }
+
+
 
     /**
      * 销毁检测器
@@ -354,6 +379,59 @@ public final class FaceTracker {
             });
         }
 
+        public void trackFaces(final Bitmap data, final int width, final int height) {
+           // waitUntilReady();
+            FaceTrackParam faceTrackParam = FaceTrackParam.getInstance();
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    List<VisionDetRet> results;
+                    Log.d("spandtime","11111");
+                   /* Bitmap bitmap= adjustPhotoRotation(data,90);
+                    Bitmap bm = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth()/2, bitmap.getHeight()/2, true);*/
+
+                    results = FaceDet.getInstance().detect(data);
+
+                    if(results.size()>0){
+                        Log.d("spandtime","has face");
+
+                        if(results.get(0).getFaceLandmarks().size()>0){
+                            Log.d("spandtime","has faceLandMarks");
+                            OneFace oneFace= DlibLandMark.transPoint(results.get(0).getFaceLandmarks(),height,width);
+                            LandmarkEngine.getInstance().putOneFace(0,oneFace);
+
+                        }
+                    }
+                    if (faceTrackParam.trackerCallback != null) {
+                        faceTrackParam.trackerCallback.onTrackingFinish();
+                    }
+                }
+            });
+        }
+
+        public static Bitmap adjustPhotoRotation(Bitmap bm, final int orientationDegree) {
+            Matrix m = new Matrix();
+            m.setRotate(orientationDegree, (float) bm.getWidth() / 2, (float) bm.getHeight() / 2);
+            float targetX, targetY;
+            if (orientationDegree == 90) {
+                targetX = bm.getHeight();
+                targetY = 0;
+            } else {
+                targetX = bm.getHeight();
+                targetY = bm.getWidth();
+            }
+            final float[] values = new float[9];
+            m.getValues(values);
+            float x1 = values[Matrix.MTRANS_X];
+            float y1 = values[Matrix.MTRANS_Y];
+            m.postTranslate(targetX - x1, targetY - y1);
+            Bitmap bm1 = Bitmap.createBitmap(bm.getHeight(), bm.getWidth(), Bitmap.Config.ARGB_8888);
+
+            Paint paint = new Paint();
+            Canvas canvas = new Canvas(bm1);
+            canvas.drawBitmap(bm, m, paint);
+            return bm1;
+        }
 
         /**
          * 释放资源

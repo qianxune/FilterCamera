@@ -14,6 +14,7 @@ import com.cgfay.filter.glfilter.base.GLImageOESInputFilter;
 import com.cgfay.filter.glfilter.base.GLImageVignetteFilter;
 import com.cgfay.filter.glfilter.beauty.GLImageBeautyFilter;
 import com.cgfay.filter.glfilter.beauty.bean.IBeautify;
+import com.cgfay.filter.glfilter.face.DBGLImageFacePointsFilter;
 import com.cgfay.filter.glfilter.face.GLImageFaceReshapeFilter;
 import com.cgfay.filter.glfilter.face.GLImageFacePointsFilter;
 import com.cgfay.filter.glfilter.color.GLImageDynamicColorFilter;
@@ -157,7 +158,7 @@ public final class RenderManager {
         // 显示输出
         mFilterArrays.put(RenderIndex.DisplayIndex, new GLImageFilter(context));
         // 人脸关键点调试
-        mFilterArrays.put(RenderIndex.FacePointIndex, new GLImageFacePointsFilter(context));
+        mFilterArrays.put(RenderIndex.FacePointIndex, new DBGLImageFacePointsFilter(context));
     }
 
     /**
@@ -331,7 +332,7 @@ public final class RenderManager {
      */
     public void drawFacePoint(int mCurrentTexture) {
         if (mFilterArrays.get(RenderIndex.FacePointIndex) != null) {
-            if (mCameraParam.drawFacePoints && LandmarkEngine.getInstance().hasFace()) {
+            if (LandmarkEngine.getInstance().hasFace()) {//mCameraParam.drawFacePoints
                 mFilterArrays.get(RenderIndex.FacePointIndex).drawFrame(mCurrentTexture, mDisplayVertexBuffer, mDisplayTextureBuffer);
             }
         }

@@ -3,7 +3,14 @@ package com.cgfay.camera.presenter;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.SurfaceTexture;
+import android.os.SystemClock;
+import android.renderscript.Allocation;
+import android.renderscript.Element;
+import android.renderscript.RenderScript;
+import android.renderscript.ScriptIntrinsicYuvToRGB;
+import android.renderscript.Type;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.Surface;
@@ -85,6 +92,9 @@ public class CameraPreviewPresenter extends PreviewPresenter<CameraPreviewFragme
                 .setFaceCallback(this)
                 .previewTrack(true)
                 .initTracker();
+
+        rs = RenderScript.create(activity);
+        yuvToRgbIntrinsic = ScriptIntrinsicYuvToRGB.create(rs, Element.U8_4(rs));
     }
 
     @Override
@@ -147,6 +157,14 @@ public class CameraPreviewPresenter extends PreviewPresenter<CameraPreviewFragme
                 .prepareFaceTracker(mActivity, mCameraParam.orientation,
                         mCameraParam.previewWidth, mCameraParam.previewHeight);
     }
+
+
+    private ScriptIntrinsicYuvToRGB yuvToRgbIntrinsic;
+    private RenderScript rs;
+    private int ratio=1;
+    private Type.Builder yuvType, rgbaType;
+    private Allocation in, out;
+    private long sTime=0;
     //TODO 人脸检测
     /**
      * 相机预览回调
@@ -156,6 +174,27 @@ public class CameraPreviewPresenter extends PreviewPresenter<CameraPreviewFragme
     public void onPreviewCallback(byte[] data) {
         // 人脸检测
         FaceTracker.getInstance().trackFace(data, mCameraParam.previewWidth, mCameraParam.previewHeight);
+     /*  if (yuvType == null)
+        {
+            yuvType = new Type.Builder(rs, Element.U8(rs)).setX(data.length/ratio);
+            in = Allocation.createTyped(rs, yuvType.create(), Allocation.USAGE_SCRIPT);
+            rgbaType = new Type.Builder(rs, Element.RGBA_8888(rs)).setX(mCameraParam.previewWidth/ratio).setY(mCameraParam.previewHeight/ratio);
+            out = Allocation.createTyped(rs, rgbaType.create(), Allocation.USAGE_SCRIPT);
+        }
+
+
+        long eTime = SystemClock.uptimeMillis();
+        if(eTime-sTime>100){
+            in.copyFrom(data);
+            yuvToRgbIntrinsic.setInput(in);
+            yuvToRgbIntrinsic.forEach(out);
+            Log.d(TAG, "onPreviewFrame: getFrame");
+            sTime=eTime;
+            Bitmap bmpout = Bitmap.createBitmap((mCameraParam.previewWidth)/ratio,(mCameraParam.previewHeight) /ratio, Bitmap.Config.ARGB_8888);
+            out.copyTo(bmpout);
+
+            FaceTracker.getInstance().trackFaceBydlib(bmpout,mCameraParam.previewWidth, mCameraParam.previewHeight);
+        }*/
     }
 
     /**
