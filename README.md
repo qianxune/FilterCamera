@@ -3,6 +3,9 @@
 FilterCamera is an Android Project to learn about development of filter camera
 
 ![image](https://github.com/qianxune/filtercamera/blob/master/main.gif)
+![image](https://github.com/qianxune/filtercamera/blob/master/takepic.jpg)
+![image](https://github.com/qianxune/filtercamera/blob/master/edit.jpg)
+
 
 # Grap the source
 
