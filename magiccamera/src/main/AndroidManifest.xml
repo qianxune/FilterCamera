@@ -1,0 +1,8 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.seu.magiccamera">
+    <application>
+        <activity android:name=".activity.MainActivity"/>
+        <activity android:name=".activity.CameraActivity"/>
+        <activity android:name=".activity.ImageActivity"/>
+        </application>
+</manifest>
